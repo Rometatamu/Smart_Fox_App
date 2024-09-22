@@ -1,0 +1,26 @@
+.main {
+    width: 100px;
+    height: 35px;
+    align-self: center;
+    padding: 0.4rem;
+    margin-top: 1rem;
+    cursor:pointer;
+    background-color: var(---secondary-color);
+    border: none;
+    border-radius: 0.5rem;
+    color: var(---quaternary-color);
+    margin: 0.5rem;
+}
+.main:hover{
+    background-color: var(---tertiary-color);
+}
+.danger{
+    background-color: var(---primery-color);
+    color: var(---quaternary-color);
+    border-radius: 0.5rem;
+    border:none;
+    cursor: pointer;
+}
+.danger:hover{
+    background-color: brown;
+}

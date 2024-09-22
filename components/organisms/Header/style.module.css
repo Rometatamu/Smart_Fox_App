@@ -1,0 +1,28 @@
+.main{
+    background-color: var(---quaternary-color);
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+   justify-content: space-between;
+   padding: 0 10rem;
+   gap:1rem;
+}
+.logo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:1rem;
+    font-size: 1.5rem;
+    color: var(---primery-color);
+}
+.logo img{
+    width: 130px;
+
+}
+.auth_bar{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+

@@ -1,0 +1,8 @@
+.main{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 0 10rem;
+    width: 100%;
+    min-height: 100vh;
+    gap: 1rem;
+}

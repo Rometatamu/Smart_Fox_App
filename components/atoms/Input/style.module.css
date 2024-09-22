@@ -1,0 +1,12 @@
+.main {
+    padding: 0.5rem;
+    border: 1px solid var(---tertiary-color);
+    border-radius: 0.5rem;
+    width: 200px;
+    height: 35px;
+}
+  
+.main:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+}
