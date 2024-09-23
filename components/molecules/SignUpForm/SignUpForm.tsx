@@ -22,10 +22,10 @@ const SignUpForm = () => {
 
             const response=await SignUp({email, password,name,photo});
              
-            if (response.status===200){
+            if (response.status===201){
                 Cookies.set(process.env.JWT_KEY as string, response.data.token);
                 Cookies.set("user_id", response.data.userId);
-                router.push("/question");
+                router.push("/questions");
             }
             console.log(response);
             setButtonLoading(false);
@@ -33,14 +33,12 @@ const SignUpForm = () => {
             console.log("err", err);
             setShowError(true);
             setButtonLoading(false);
-
         }
     };
-
-
-  return (
+  
+    return (
     <div className={styles.main}>
-      <h2>New user login</h2>
+      <h2>New user sign up</h2>
         <Input
         type="text"
         name="name"

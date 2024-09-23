@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import {User} from "../types/user";
 
 type LoginProps={
     email: string;
@@ -38,7 +39,7 @@ type SignUpProps={
 export const SignUp= async ({name, photo, email, password}:SignUpProps)=>{
     const body={
         name: name,
-        photo: photo,
+        photo: photo === "" ? undefined : photo,
         email: email,
         password: password,
     };
@@ -46,4 +47,17 @@ export const SignUp= async ({name, photo, email, password}:SignUpProps)=>{
 
     return response;
 };
+export const FetchUsers = async () => {
+    try {
+         const response = await axios.get(
+          `${process.env.SERVER_URL}/users`,
+        );
+        console.log(response.data.users)
+      return response.data.users as User[]; 
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+};
+
 

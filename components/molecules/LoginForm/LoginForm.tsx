@@ -23,7 +23,7 @@ const LoginForm = () => {
             if (response.status===200){
                 Cookies.set(process.env.JWT_KEY as string, response.data.token);
                 Cookies.set("user_id", response.data.userId);
-                router.push("/question");
+                router.push("/questions");
             }
             console.log(response);
             setButtonLoading(false);
