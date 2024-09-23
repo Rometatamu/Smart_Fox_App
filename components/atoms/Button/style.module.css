@@ -24,3 +24,14 @@
 .danger:hover{
     background-color: brown;
 }
+.call{
+    background-color: var(---quaternary-color);
+    color: var(---secondary-color);
+    border-radius: 0.5rem;
+    border:solid 1px var(---secondary-color);
+    cursor: pointer;
+}
+.call:hover{
+    color: var(---primery-color);
+    background-color: var(---quaternary-color);
+}

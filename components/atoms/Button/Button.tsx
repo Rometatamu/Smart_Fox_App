@@ -7,12 +7,13 @@ type ButtonProps={
     onClick: ()=> void;
     isLoading?: boolean;
     type ?: string;
+    style ?: React.CSSProperties;
 
 }
 
 const Button = ({title, onClick, isLoading, type}:ButtonProps) => {
   return (
-    <button className={`${styles.main} ${type==="DANGER" && styles.danger}`}
+    <button className={`${styles.main} ${type==="DANGER" && styles.danger} ${type==="CALL" && styles.call}`}
         onClick={onClick}>
        {isLoading ? <Spiner/> :<>{title}</>}</button>
 
