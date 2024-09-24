@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import PageTemplate from '@/components/templates/PageTemplate/PageTemplate';
 import NavBar from '@/components/molecules/NavBar/NavBar';
-import {User} from "../../components/types/user";
-import { FetchUsers } from '@/components/apiCalls/user';
+import {User} from "../../type/user";
+import { FetchUsers } from '@/apiCalls/uer';
 import UsersWrapper from '@/components/organisms/UsersWrapper/UsersWrapper';
 
 const UsersPage = () => {

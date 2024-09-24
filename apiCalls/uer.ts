@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import {User} from "../types/user";
+import {User} from "../type/user";
 
 type LoginProps={
     email: string;

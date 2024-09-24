@@ -3,72 +3,47 @@ import styles from "./style.module.css";
 import Main from "../../organisms/Main/Main"
 import Header from "../../organisms/Header/Header";
 import Footer from "../../organisms/Footer/Footer";
-import Cookies from "js-cookie";
-import {useRouter} from "next/router";
 import Spiner from "../../atoms/Spiner/Spiner";
-import { UserValidation } from "../../apiCalls/user";
+import {ValidateUser} from "../../../utils/ValidateUser/ValidateUser";
 
 type PageTemplateProps = {
-    children: ReactNode;
+  children: ReactNode;
+  requiresLogin?: boolean; 
 };
 
-const PageTemplate = ({ children}:PageTemplateProps) => {
-  const router = useRouter();
+const PageTemplate = ({ children, requiresLogin = false }: PageTemplateProps) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
 
-  const validateUser = async () => {
-    const token = Cookies.get(process.env.JWT_KEY as string);
- 
-    if (!token) {
-      setIsUserLoggedIn(false);
-      router.push("/Login");
-      setIsLoading(false);
-      return;
+  const checkUser = async () => {
+    if (requiresLogin) {
+      const isLoggedIn = await ValidateUser();
+      setIsUserLoggedIn(isLoggedIn);
+    } else {
+      setIsUserLoggedIn(true);
     }
-  
-    try {
-      const response = await UserValidation();
- 
-      if (response.status === 200) {
-        setIsUserLoggedIn(true);
-      } else {
-        setIsUserLoggedIn(false);
-        router.push("/Login");
-      }
-    } catch (err) {
-      console.log("err", err);
-      setIsUserLoggedIn(false);
-      router.push("/Login");
-    } finally {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    validateUser();
-  }, []);
+    checkUser();
+  },[requiresLogin]);
 
   if (isLoading) {
     return (
       <div className={styles.loaderContainer}>
-        <Spiner /> 
+        <Spiner />
       </div>
     );
   }
 
-  
   return (
     <div className={styles.pageWrapper}>
-       <Header/>
-       <div className={styles.main}>
-        {isUserLoggedIn ? (
-        <Main>{children}</Main> 
-         ) : (
-        <p>You are not loged in . Please Login.</p> 
-        )}
-       </div>
-       <Footer copyrightTitle="Smart Fox © All rights reserved" />
+      <Header />
+      <div className={styles.main}>
+        <Main>{children}</Main>
+      </div>
+      <Footer copyrightTitle="Smart Fox © All rights reserved" />
     </div>
   );
 };

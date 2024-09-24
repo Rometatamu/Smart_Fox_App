@@ -12,15 +12,17 @@ const QuestionCard = ({ id, question_text, date, answered }: QuestionCardProps) 
     const formattedDate = new Date(date).toDateString();
 
     return (
-      <Link href={`/Item/${id}`} className={styles.main}>
-        <div
-          className={`${styles.circle} ${
-            answered ? styles.answered : styles.notAnswered
-          }`}
-        ></div>
-        <div>
-          <p className={styles.date}>{formattedDate}</p>
-          <p>{question_text}</p>
+      <Link href={`/Item/${id}`}>
+        <div className={styles.main}>
+          <div
+            className={`${styles.circle} ${
+             answered ? styles.answered : styles.notAnswered
+             }`}
+           ></div>
+          <div>
+           <p className={styles.date}>{formattedDate}</p>
+           <p>{question_text}</p>
+          </div>
         </div>
       </Link>
     );

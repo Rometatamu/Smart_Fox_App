@@ -1,6 +1,6 @@
 import styles from './style.module.css'
 import {useState} from "react";
-import {Login} from "../../apiCalls/user";
+import {Login} from "../../../apiCalls/uer";
 import Cookies from "js-cookie";
 import {useRouter} from "next/router";
 import Button from "../../atoms/Button/Button";
@@ -21,11 +21,11 @@ const LoginForm = () => {
             const response=await Login({email, password});
              
             if (response.status===200){
-                Cookies.set(process.env.JWT_KEY as string, response.data.token);
+                Cookies.set(process.env.JWT_KEY as string, response.data.jwtToken);
                 Cookies.set("user_id", response.data.userId);
                 router.push("/questions");
             }
-            console.log(response);
+            console.log(response.data.jwtToken);
             setButtonLoading(false);
         } catch (err){
             console.log("err", err);

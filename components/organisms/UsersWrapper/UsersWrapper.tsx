@@ -1,6 +1,6 @@
 import styles from './style.module.css';
 import UserCard from "../../molecules/UserCard/UserCard";
-import {User} from "../../types/user";
+import {User} from "../../../type/user";
 
 type UsersWrapperProps={
     users: User[];

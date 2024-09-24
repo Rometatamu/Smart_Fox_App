@@ -1,6 +1,6 @@
 import styles from './style.module.css'
 import {useState} from "react";
-import {SignUp} from "../../apiCalls/user";
+import {SignUp} from "../../../apiCalls/uer";
 import Cookies from "js-cookie";
 import {useRouter} from "next/router";
 import Button from "../../atoms/Button/Button";
@@ -23,7 +23,7 @@ const SignUpForm = () => {
             const response=await SignUp({email, password,name,photo});
              
             if (response.status===201){
-                Cookies.set(process.env.JWT_KEY as string, response.data.token);
+                Cookies.set("fox_app_jwt", response.data.token);
                 Cookies.set("user_id", response.data.userId);
                 router.push("/questions");
             }
