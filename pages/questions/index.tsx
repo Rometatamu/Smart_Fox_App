@@ -7,30 +7,42 @@ import { Question } from "../../type/question";
 import { FetchQuestions } from "../../apiCalls/question";
 import { FetchUserQuestions } from "../../apiCalls/question";
 import {FetchAnsweredQuestions, FetchNotAnsweredQuestions} from "../../apiCalls/question";
+import { useRouter } from 'next/router'; 
+import { ValidateUser } from '@/utils/ValidateUser/ValidateUser';
 
 const QuestionsPage = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
+  const router = useRouter(); 
 
   const getQuestions = async (type: string) => {
     try {
       let questionsData;
-      switch (type) {
-        case 'all':
-          questionsData = await FetchQuestions();
-          break;
-        case 'user':
-          questionsData = await FetchUserQuestions();
-          break;
-        case 'answered':
-          questionsData = await FetchAnsweredQuestions();
-          break;
-        case 'not_answered':
-          questionsData = await FetchNotAnsweredQuestions(); 
-          break;
-        default:
-          questionsData = await FetchQuestions();
+
+      if (type === 'user') {
+        const isLoggedIn = await ValidateUser();
+        if (!isLoggedIn) {
+          alert("You need to log in to view your questions.");
+          router.push('/login'); 
+          return;
+        }
+        questionsData = await FetchUserQuestions(); 
+      } else {
+        switch (type) {
+          case 'all':
+            questionsData = await FetchQuestions();
+            break;
+          case 'answered':
+            questionsData = await FetchAnsweredQuestions();
+            break;
+          case 'not_answered':
+            questionsData = await FetchNotAnsweredQuestions(); 
+            break;
+          default:
+            questionsData = await FetchQuestions();
+        }
       }
-      setQuestions(questionsData);
+
+      setQuestions(questionsData); 
     } catch (err) {
       console.log("Error receiving questions:", err);
     }
@@ -55,4 +67,3 @@ const QuestionsPage = () => {
 };
 
 export default QuestionsPage;
-

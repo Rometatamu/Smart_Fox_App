@@ -26,6 +26,6 @@ const QuestionCard = ({ id, question_text, date, answered }: QuestionCardProps) 
         </div>
       </Link>
     );
-  };
+};
 
 export default QuestionCard

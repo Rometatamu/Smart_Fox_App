@@ -17,8 +17,8 @@ export const FetchQuestions = async () => {
 };
 
 type SubmitQuestionProps={
-    question_text: string,
-    }
+  question_text: string,
+}
 
 export const SubmitQuestion = async (formData : SubmitQuestionProps) => {
     const jwt = Cookies.get(process.env.JWT_KEY as string);  
@@ -86,23 +86,72 @@ type GetQuestionProps = {
     id: string;
   };
   
-  export const GetQuestion = async ({ id }: GetQuestionProps): Promise<Question | null> => {
-    const jwt = Cookies.get(process.env.JWT_KEY as string);
+export const GetQuestion = async ({ id }: GetQuestionProps): Promise<Question | null> => {
+  const jwt = Cookies.get(process.env.JWT_KEY as string);
   
-    if (!jwt) {
-      throw new Error("JWT token is missing");
-    }
+  if (!jwt) {
+    throw new Error("JWT token is missing");
+  }
   
+  try {
+    const headers = {
+      authorization: jwt,
+    };
+  
+    const response = await axios.get(`${process.env.SERVER_URL}/question/${id}`, { headers });
+    return response.data.question as Question;
+  } catch (err) {
+    console.log("Error fetching question:", err);
+    throw err;
+  }
+};
+
+type DeleteQuestionProps={
+  id: string;
+};
+
+export const DeleteQuestion = async ({id}:DeleteQuestionProps) => { 
+    const jwt = Cookies.get(process.env.JWT_KEY as string); 
+
     try {
-      const headers = {
-        authorization: jwt,
-      };
-  
-      const response = await axios.get(`${process.env.SERVER_URL}/questions/${id}`, { headers });
-      return response.data.question as Question;
+      const headers = { authorization: jwt };
+      const response = await axios.delete(`${process.env.SERVER_URL}/question/${id}`, { headers });
+
+      return response;
+
     } catch (err) {
-      console.log("Error fetching question:", err);
-      throw err;
+        console.log(err);
+        throw err;
     }
-  };
+};
+type SubmitAnswerProps={
+  answer_text: string,
+}
+
+export const SubmitAnswer = async (questionId: string, answerData:SubmitAnswerProps) => {
+  const jwt = Cookies.get(process.env.JWT_KEY as string); 
+  if (!jwt) {
+    throw new Error("JWT token is missing");
+  }
+  try {
+    const body = {
+      answer_text: answerData.answer_text
+
+    };
+    const headers = {
+      authorization: jwt,
+    };
+    const response = await axios.post(`${process.env.SERVER_URL}/questions/${questionId}/answers`, body, 
+     {headers}
+    );
+    return response.data;
+  } catch (err) {
+    console.log("Error submitting answer:", err);
+    throw err;
+  }
+};
+
+  
+
+
   
