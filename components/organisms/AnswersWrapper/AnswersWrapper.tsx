@@ -7,10 +7,13 @@ import { Answer } from "../../../type/answer";
 
 type AnswersWrapperProps = {
     answers: Answer[];
-    onFetchAnswers: (type: string) => void; 
+    onFetchAnswers: (type: string) => void;
+    onDeleteAnswer: (questionId: string, answerId: string) => Promise<void>;
+    userId: string|null;
+
 };
 
-const AnswersWrapper = ({ answers, onFetchAnswers }: AnswersWrapperProps) => {
+const AnswersWrapper = ({ answers, onFetchAnswers, onDeleteAnswer, userId }: AnswersWrapperProps) => {
    
     return (
         <div className={styles.main}>
@@ -44,7 +47,11 @@ const AnswersWrapper = ({ answers, onFetchAnswers }: AnswersWrapperProps) => {
                             gained_dislikes_number={answer.gained_dislikes_number}
                             date={new Date(answer.date).toLocaleDateString()} 
                             onClick={() => {}}
+                            userId={answer.userId}
+                            currentUserId= {userId || ""} // Atsakymo autorius
+                            onDelete={() => onDeleteAnswer(answer.questionId, answer.id)} // Kreipiamės į trynimo funkciją
                         />
+                        
                     </div>
                 ))}
             </div>

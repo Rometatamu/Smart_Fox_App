@@ -6,6 +6,8 @@ import { Question } from '@/type/question';
 import { Answer } from '@/type/answer';
 import AnswerCard from '../../molecules/AnswerCard/AnswerCard';
 import { useRouter } from 'next/router';
+import ConfirmModal from "../../molecules/Modal/ConfirmModal";
+import {useState} from "react";
 
 type ItemWrapperProps = {
     question: Question | null;
@@ -19,7 +21,15 @@ type ItemWrapperProps = {
 
 const ItemWrapper = ({ question, answer, userId, answerText, setAnswerText, handleDeleteQuestion, handleSubmitAnswer }: ItemWrapperProps) => {
     const router = useRouter();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false); 
 
+    const confirmDelete = async () => {
+        closeModal();  
+        handleDeleteQuestion();
+    }
+    
     if (!question) return null;
 
     return (
@@ -34,8 +44,15 @@ const ItemWrapper = ({ question, answer, userId, answerText, setAnswerText, hand
             />
 
             {userId === question.userId && !question.answered && (
-                <Button title="Delete" onClick={handleDeleteQuestion} isLoading={false} type="DANGER" />
+                <Button title="Delete" onClick={openModal} isLoading={false} type="DANGER" />
             )}
+            <ConfirmModal
+             isOpen={isModalOpen}
+             onRequestClose={closeModal}
+             onConfirm={confirmDelete}
+             title="Do you really want to delete question?"
+             
+            />
 
             {userId !== question.userId && !question.answered && (
                 <div className={styles.textarea}>
