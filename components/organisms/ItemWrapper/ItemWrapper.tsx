@@ -55,7 +55,7 @@ const ItemWrapper = ({ question, answer, userId, answerText, setAnswerText, hand
                             resize: "vertical",
                         }}
                     />
-                    <Button title="Submit" isLoading={false} onClick={handleSubmitAnswer} type="CALL" />
+                    <Button title="Submit" isLoading={false} onClick={handleSubmitAnswer} />
                 </div>
             )}
 

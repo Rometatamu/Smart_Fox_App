@@ -28,4 +28,65 @@ export const FetchQuestionAnswer = async ({questionId}: FetchQuestionAnswerProps
     throw err;
   }
 };
+export const FetchAnswers = async () => {
+  try {
+       const response = await axios.get(
+        `${process.env.SERVER_URL}/answers`,
+      );
+      console.log(response.data.answers)
+    return response.data.answers as Answer[]; 
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+export const FetchUserAnswers = async () => {
+  const jwt = Cookies.get(process.env.JWT_KEY as string);
+  const userId=Cookies.get("user_id");
 
+  try {
+      const headers = {
+        authorization: jwt,
+      };
+
+      const response = await axios.get(
+        `${process.env.SERVER_URL}/answers/user/${userId}`,
+        {headers}
+      );
+
+    return response.data.answers as Answer[]; 
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+type DeleteAnswerProps={
+  id: string;
+};
+
+export const DeleteAnswer = async (questionId: string, {id}:DeleteAnswerProps) => { 
+    const jwt = Cookies.get(process.env.JWT_KEY as string); 
+   
+    try {
+      const headers = { authorization: jwt };
+      const response = await axios.delete(`${process.env.SERVER_URL}/answer/${questionId}/${id}`, { headers });
+
+      return response;
+
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+};
+export const FetchAnswersWithLike = async () => {
+  try {
+       const response = await axios.get(
+        `${process.env.SERVER_URL}/answers/filtered`, { params: { filterBy: 'likes' } },
+      );
+      console.log(response.data.answers)
+    return response.data.answers as Answer[]; 
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};

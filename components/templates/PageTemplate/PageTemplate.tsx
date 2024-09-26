@@ -18,29 +18,23 @@ const PageTemplate = ({ children, requiresLogin = false }: PageTemplateProps) =>
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Patikriname, ar vartotojas yra prisijungęs
   const checkUser = async () => {
-    setIsLoading(true); // Užkrauname, kol tikriname būseną
-    const isLoggedIn = await ValidateUser(); // Laukiame atsakymo iš ValidateUser
-    setIsUserLoggedIn(isLoggedIn); // Atnaujiname vartotojo būseną
-    setIsLoading(false); // Baigiame krauti
+    setIsLoading(true); 
+    const isLoggedIn = await ValidateUser();
+    setIsUserLoggedIn(isLoggedIn); 
+    setIsLoading(false); 
   };
-
-  // Atsijungimo funkcija
   const handleSignOut = () => {
-    Cookies.remove(process.env.JWT_KEY as string); // Pašaliname slapuką
-    setIsUserLoggedIn(false); // Nustatome neprisijungusio vartotojo būseną
-    router.push("/"); // Nukreipiame į pagrindinį puslapį
+    Cookies.remove(process.env.JWT_KEY as string);
+    setIsUserLoggedIn(false); 
+    router.push("/"); 
   };
-
-  // Tikriname vartotoją pradiniame krovime
   useEffect(() => {
     checkUser();
   }, [requiresLogin]);
 
-  // Stebime maršruto pokytį ir atnaujiname vartotojo būseną
   useEffect(() => {
-    checkUser(); // Kiekvieną kartą, kai keičiasi maršrutas, tikriname vartotoją
+    checkUser(); 
   }, [router.asPath]);
 
   if (isLoading) {

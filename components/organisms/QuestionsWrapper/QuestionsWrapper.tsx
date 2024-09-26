@@ -96,7 +96,7 @@ const QuestionsWrapper = ({ questions, onQuestionSubmit, onFetchQuestions }: Que
                     title="Submit"
                     isLoading={isLoading}
                     onClick={handleSubmit}
-                    type="CALL"
+                  
                 />
             </div>
             <div className={styles.questions}>
