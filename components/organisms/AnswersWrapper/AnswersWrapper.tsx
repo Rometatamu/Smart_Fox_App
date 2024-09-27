@@ -9,11 +9,12 @@ type AnswersWrapperProps = {
     answers: Answer[];
     onFetchAnswers: (type: string) => void;
     onDeleteAnswer: (questionId: string, answerId: string) => Promise<void>;
+    handleReaction: (reactionType: 'like' | 'dislike', answerId: string) => Promise<void>
     userId: string|null;
 
 };
 
-const AnswersWrapper = ({ answers, onFetchAnswers, onDeleteAnswer, userId }: AnswersWrapperProps) => {
+const AnswersWrapper = ({ answers, onFetchAnswers, onDeleteAnswer, handleReaction, userId }: AnswersWrapperProps) => {
    
     return (
         <div className={styles.main}>
@@ -46,10 +47,10 @@ const AnswersWrapper = ({ answers, onFetchAnswers, onDeleteAnswer, userId }: Ans
                             gained_likes_number={answer.gained_likes_number}
                             gained_dislikes_number={answer.gained_dislikes_number}
                             date={new Date(answer.date).toLocaleDateString()} 
-                            onClick={() => {}}
+                            onReaction={(reactionType) => handleReaction(reactionType, answer.id)}
                             userId={answer.userId}
-                            currentUserId= {userId || ""} // Atsakymo autorius
-                            onDelete={() => onDeleteAnswer(answer.questionId, answer.id)} // Kreipiamės į trynimo funkciją
+                            currentUserId= {userId || ""} 
+                            onDelete={() => onDeleteAnswer(answer.questionId, answer.id)} 
                         />
                         
                     </div>

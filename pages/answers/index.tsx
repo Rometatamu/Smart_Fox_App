@@ -4,18 +4,62 @@ import NavBar from '../../components/molecules/NavBar/NavBar';
 import AnswersWrapper from '@/components/organisms/AnswersWrapper/AnswersWrapper';
 import { useState, useEffect } from "react";
 import { Answer } from "../../type/answer";
-import { FetchAnswers, FetchAnswersWithLike,FetchUserAnswers, DeleteAnswer } from "../../apiCalls/answer";
+import { FetchAnswers, FetchAnswersWithLike,FetchUserAnswers, DeleteAnswer, PutAnswerReaction,FetchAnswerById } from "../../apiCalls/answer";
 import { useRouter } from 'next/router'; 
 import { ValidateUser } from '@/utils/ValidateUser/ValidateUser';
 import Cookies from "js-cookie";
+
 
 const AnswerPage = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const router = useRouter(); 
 
+  useEffect(() => {
+    const userId = Cookies.get("user_id") || null;
+    setUserId(userId);
+  }, [router.query.id]);
 
+  const handleReaction = async (reactionType: 'like' | 'dislike', answerId: string) => {
+    try {
 
+      if (!userId) {
+        const isLoggedIn = await ValidateUser();
+        if (!isLoggedIn) {
+          alert("You need to log in to react.");
+          router.push('/login');
+          return;
+        }
+      }
+
+      if (!answerId) {
+        console.error('Answer ID not found');
+        return;
+      }
+
+      await PutAnswerReaction(reactionType, { id: answerId }); 
+
+      const updatedAnswer = await FetchAnswerById({ id: answerId });
+
+      if (updatedAnswer) {  
+        setAnswers((prevAnswers) => 
+          prevAnswers.map(answer => answer.id === answerId ? updatedAnswer : answer)
+        );
+      }
+
+    } catch (error) {
+      console.error('Error handling reaction:', error);
+    }
+};
+
+  const onDeleteAnswer = async (questionId: string, answerId: string) => {
+    try {
+        await DeleteAnswer(questionId, { id: answerId });
+        setAnswers(prevAnswers => prevAnswers.filter(answer => answer.id !== answerId));
+    } catch (error) {
+        console.error("Failed to delete answer", error);
+    }
+  };
   const getAnswers = async (type: string) => {
     try {
       let answersData;
@@ -40,32 +84,12 @@ const AnswerPage = () => {
             answersData = await FetchAnswers();
         }
       }
-
       setAnswers(answersData); 
     } catch (err) {
       console.log("Error receiving questions:", err);
     }
   };
-  useEffect(() => {
-    const userId = Cookies.get("user_id") || null;
-    setUserId(userId);
-
-    if (router.query.id && userId) {
-        // Čia galite gauti atsakymus ir atnaujinti state
-        // setAnswers(gautiAtsakymus());
-    }
-  }, [router.query.id]);
-
-   const onDeleteAnswer = async (questionId: string, answerId: string) => {
-    try {
-        await DeleteAnswer(questionId, { id: answerId });
-        // Po sėkmingo trynimo atnaujinkite atsakymų būseną
-        setAnswers(prevAnswers => prevAnswers.filter(answer => answer.id !== answerId));
-    } catch (error) {
-        console.error("Failed to delete answer", error);
-    }
-  };
-
+  
   useEffect(() => {
     getAnswers('all'); 
   }, []);
@@ -79,6 +103,7 @@ const AnswerPage = () => {
           onFetchAnswers={getAnswers}
           userId={userId}
           onDeleteAnswer={onDeleteAnswer} 
+          handleReaction={handleReaction}
         />
       </PageTemplate>
     </div>

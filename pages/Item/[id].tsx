@@ -5,7 +5,7 @@ import PageTemplate from '@/components/templates/PageTemplate/PageTemplate';
 import NavBar from '@/components/molecules/NavBar/NavBar';
 import ItemWrapper from '@/components/organisms/ItemWrapper/ItemWrapper';
 import { GetQuestion, DeleteQuestion, SubmitAnswer } from '@/apiCalls/question';
-import { FetchQuestionAnswer} from '@/apiCalls/answer';
+import { FetchQuestionAnswer, PutAnswerReaction,FetchAnswerById} from '@/apiCalls/answer';
 import { Question } from "../../type/question";
 import { Answer } from '@/type/answer';
 import { ValidateUser } from '@/utils/ValidateUser/ValidateUser';
@@ -54,6 +54,7 @@ const ItemPage = () => {
         fetchQuestionData();
     }, [router.query.id]);
 
+
     const handleDeleteQuestion = async () => {
         if (question) {
             try {
@@ -78,8 +79,36 @@ const ItemPage = () => {
               console.error("Error submitting answer:", err);
           }
       }
-  };
-  
+    };
+    const handleReaction = async (reactionType: 'like' | 'dislike', answerId: string) => {
+        try {
+    
+          if (!userId) {
+            const isLoggedIn = await ValidateUser();
+            if (!isLoggedIn) {
+              alert("You need to log in to react.");
+              router.push('/login');
+              return;
+            }
+          }
+    
+          if (!answerId) {
+            console.error('Answer ID not found');
+            return;
+          }
+    
+          await PutAnswerReaction(reactionType, { id: answerId }); 
+    
+          const updatedAnswer = await FetchAnswerById({ id: answerId });
+    
+          if (updatedAnswer) {  
+            setAnswer(updatedAnswer)
+          }
+    
+        } catch (error) {
+          console.error('Error handling reaction:', error);
+        }
+    };
 
     return (
         <div className={styles.main}>
@@ -93,6 +122,7 @@ const ItemPage = () => {
                     setAnswerText={setAnswerText}
                     handleDeleteQuestion={handleDeleteQuestion}
                     handleSubmitAnswer={handleSubmitAnswer}
+                    handleReaction={handleReaction}
                 />
             </PageTemplate>
         </div>

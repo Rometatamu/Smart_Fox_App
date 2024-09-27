@@ -90,3 +90,48 @@ export const FetchAnswersWithLike = async () => {
     throw err;
   }
 };
+type PutAnswerLikerProps={
+  id: string,
+};
+
+export const PutAnswerReaction = async (reactionType: "like" |"dislike", {id}:PutAnswerLikerProps) => { 
+  const jwt = Cookies.get(process.env.JWT_KEY as string);  
+  try {
+    const body = {
+      reactionType
+    };
+    const headers = {
+      authorization: jwt,
+    };
+    const response = await axios.put(`${process.env.SERVER_URL}/answers/${id}/reactions`, body, {
+      headers,
+    });
+    return response;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+type FetchAnswerByIdProps = {
+  id: string;
+};
+
+export const FetchAnswerById = async ({ id }: FetchAnswerByIdProps): Promise<Answer| null> => {
+  const jwt = Cookies.get(process.env.JWT_KEY as string);
+  
+  if (!jwt) {
+    throw new Error("JWT token is missing");
+  }
+  
+  try {
+    const headers = {
+      authorization: jwt,
+    };
+  
+    const response = await axios.get(`${process.env.SERVER_URL}/answer/${id}`, { headers });
+    return response.data.answer as Answer;
+  } catch (err) {
+    console.log("Error fetching answer:", err);
+    throw err;
+  }
+};

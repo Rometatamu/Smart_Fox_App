@@ -17,9 +17,10 @@ type ItemWrapperProps = {
     setAnswerText: (value: string) => void;
     handleDeleteQuestion: () => void;
     handleSubmitAnswer: () => void;
+    handleReaction: (reactionType: 'like' | 'dislike', answerId: string) => Promise<void>
 };
 
-const ItemWrapper = ({ question, answer, userId, answerText, setAnswerText, handleDeleteQuestion, handleSubmitAnswer }: ItemWrapperProps) => {
+const ItemWrapper = ({ question, answer, userId, answerText, setAnswerText, handleDeleteQuestion, handleSubmitAnswer,handleReaction }: ItemWrapperProps) => {
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
@@ -83,7 +84,7 @@ const ItemWrapper = ({ question, answer, userId, answerText, setAnswerText, hand
                     date={new Date(answer.date).toLocaleDateString()}
                     gained_likes_number={answer.gained_likes_number}
                     gained_dislikes_number={answer.gained_dislikes_number}
-                    onClick={() => {}}
+                    onReaction={(reactionType) => handleReaction(reactionType, answer.id)}
                 />
             )}
         </div>
