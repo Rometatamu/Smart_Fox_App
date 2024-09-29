@@ -7,13 +7,13 @@ type ButtonProps={
     onClick: ()=> void;
     isLoading?: boolean;
     type ?: string;
-    style ?: React.CSSProperties;
+    className ?: string;
 
 }
 
-const Button = ({title, onClick, isLoading, type}:ButtonProps) => {
+const Button = ({title, onClick, isLoading, type, className}:ButtonProps) => {
   return (
-    <button className={`${styles.main} ${type==="DANGER" && styles.danger} ${type==="CALL" && styles.call}`}
+    <button className={`${styles.main} ${type==="DANGER" && styles.danger} ${type==="CALL" && styles.call} ${className==="hiddenBtn" && styles.hiddenBtn}`}
         onClick={onClick}>
        {isLoading ? <Spiner/> :<>{title}</>}</button>
 

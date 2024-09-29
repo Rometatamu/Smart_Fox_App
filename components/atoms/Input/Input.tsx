@@ -7,19 +7,17 @@ type InputProps={
     value: string| number;
     onChange: (e: React.ChangeEvent<HTMLInputElement>)=> void;
     placeholder: string;
-    style ?: React.CSSProperties;
 }
 
-const Input = ({ type, name, value, onChange, placeholder, style }:InputProps) => {
+const Input = ({ type, name, value, onChange, placeholder}:InputProps) => {
   return (
     <input
-      className={styles.main}
+      className={`${styles.main} ${type==="textarea" && styles.textarea}` }
       type={type}
       name={name}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      style={style}
     />
   );
 };

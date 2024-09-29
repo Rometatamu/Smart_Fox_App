@@ -82,15 +82,6 @@ const QuestionsWrapper = ({ questions, onQuestionSubmit, onFetchQuestions }: Que
                     onChange={(e) => {
                         setQuestionText(e.target.value);
                     }}
-                    style={{
-                        width: "100%",
-                        height: "150px",
-                        padding: "1rem",
-                        border: "1px solid var(---primery-color)",
-                        borderRadius: "5px",
-                        fontSize: "0.8rem",
-                        resize: "vertical",
-                    }}
                 />
                 <Button
                     title="Submit"

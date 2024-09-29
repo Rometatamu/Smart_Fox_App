@@ -3,16 +3,21 @@ import styles from "./style.module.css";
 import logo from "../../../assets/logo.svg";
 import Button from "../../atoms/Button/Button";
 import Link from "next/link";
+import MeniuBtn from '../../../assets/menu-btn.svg';
 
 type HeaderProps = {
   isLoggedIn: boolean;
-  onSignOut: () => void;  
+  onSignOut: () => void; 
+  toggleNavBar: () => void; 
 };
 
-const Header = ({ isLoggedIn, onSignOut }: HeaderProps) => {
+const Header = ({ isLoggedIn, onSignOut, toggleNavBar }: HeaderProps) => {
 
   return (
     <header className={styles.main}>
+      <div className={styles.mobileBtn}> 
+        <button onClick={toggleNavBar}><img src={MeniuBtn.src}/></button>
+      </div>
       <div className={styles.logo}>
         <img src={logo.src} alt="smart_fox_logo" />
         <h1>Smart Fox</h1>
@@ -38,6 +43,7 @@ const Header = ({ isLoggedIn, onSignOut }: HeaderProps) => {
                 title="Sign Up"
                 isLoading={false}
                 onClick={() => {}}
+                className="hiddenBtn"
               />
             </Link>
           </>

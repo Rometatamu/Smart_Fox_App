@@ -1,9 +1,15 @@
 import styles from "./style.module.css";
 import Link from "next/link";
 
-const NavBar = () => {
+
+type NavBarProos={
+  isOpen: boolean;
+}
+
+const NavBar = ({isOpen}:NavBarProos) => {
+  
   return (
-    <nav className={styles.main}>
+    <nav className={`${styles.main} ${ isOpen? styles.mobileMeniuOpen : ""}`}>
       <ul>
         <li>
           <Link href="/">Home</Link>

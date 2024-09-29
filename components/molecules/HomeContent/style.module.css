@@ -17,3 +17,23 @@
 .main h1{
     color: var(---primery-color);
 }
+@media (max-width: 768px) {
+    .main{
+        gap:1rem;
+        font-size: 0.8rem;
+        padding: 3rem 1rem;
+    }
+    .main img{
+        width: 350px;
+    }
+}
+@media (max-width: 520px) {
+    .main{
+        gap:1rem;
+        font-size: 0.7rem;
+        padding: 2rem 0.5rem;
+    }
+    .main img{
+        width: 300px;
+    }
+}

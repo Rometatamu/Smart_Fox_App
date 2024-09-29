@@ -8,3 +8,8 @@
     justify-content: center;
     color: var(---quaternary-color);
 }
+@media (max-width: 520px) {
+    .main{
+        font-size: 0.7rem;
+    }
+}

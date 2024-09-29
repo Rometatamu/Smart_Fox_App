@@ -35,3 +35,15 @@
     color: var(---primery-color);
     background-color: var(---quaternary-color);
 }
+@media (max-width: 992px) {
+    .hiddenBtn{
+        display: none;
+    }
+}
+@media (max-width: 520px) {
+    .main{
+        width: 80px;
+        height: 30px;
+        font-size: 0.6rem;
+    }
+} 

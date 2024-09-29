@@ -1,6 +1,4 @@
-import styles from './style.module.css';
 import PageTemplate from '@/components/templates/PageTemplate/PageTemplate';
-import NavBar from '../../components/molecules/NavBar/NavBar';
 import QuestionsWrapper from '@/components/organisms/QuestionsWrapper/QuestionsWrapper';
 import { useState, useEffect } from "react";
 import { Question } from "../../type/question";
@@ -53,9 +51,8 @@ const QuestionsPage = () => {
   }, []);
 
   return (
-    <div className={styles.main}>
+    <div >
       <PageTemplate>
-        <NavBar />
         <QuestionsWrapper 
           questions={questions} 
           onQuestionSubmit={() => getQuestions('all')} 

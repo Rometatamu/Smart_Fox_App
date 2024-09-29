@@ -12,7 +12,7 @@ const QuestionCard = ({ id, question_text, date, answered }: QuestionCardProps) 
     const formattedDate = new Date(date).toDateString();
 
     return (
-      <Link href={`/Item/${id}`}>
+      <Link href={`/Item/${id}`} >
         <div className={styles.main}>
           <div
             className={`${styles.circle} ${

@@ -2,7 +2,6 @@ import styles from './style.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import PageTemplate from '@/components/templates/PageTemplate/PageTemplate';
-import NavBar from '@/components/molecules/NavBar/NavBar';
 import ItemWrapper from '@/components/organisms/ItemWrapper/ItemWrapper';
 import { GetQuestion, DeleteQuestion, SubmitAnswer } from '@/apiCalls/question';
 import { FetchQuestionAnswer, PutAnswerReaction,FetchAnswerById} from '@/apiCalls/answer';
@@ -26,7 +25,6 @@ const ItemPage = () => {
             router.push('/questions');
             return;
         }
-    
         const userId = Cookies.get("user_id") || null; 
         setUserId(userId);
     
@@ -75,36 +73,26 @@ const ItemPage = () => {
               alert("Answer submitted.");
               setAnswerText(''); 
               router.reload(); 
-          } catch (err) {
+            } catch (err) {
               console.error("Error submitting answer:", err);
-          }
-      }
+            }
+        }
     };
     const handleReaction = async (reactionType: 'like' | 'dislike', answerId: string) => {
         try {
-    
           if (!userId) {
-            const isLoggedIn = await ValidateUser();
-            if (!isLoggedIn) {
-              alert("You need to log in to react.");
-              router.push('/login');
-              return;
-            }
-          }
-    
-          if (!answerId) {
-            console.error('Answer ID not found');
+            alert("You need to log in to react.");
+            router.push('/login');
             return;
-          }
-    
-          await PutAnswerReaction(reactionType, { id: answerId }); 
-    
-          const updatedAnswer = await FetchAnswerById({ id: answerId });
-    
-          if (updatedAnswer) {  
-            setAnswer(updatedAnswer)
-          }
-    
+            } if (!answerId) {
+                console.error('Answer ID not found');
+                return;
+            }
+           await PutAnswerReaction(reactionType, { id: answerId }); 
+           const updatedAnswer = await FetchAnswerById({ id: answerId });
+            if (updatedAnswer) {  
+              setAnswer(updatedAnswer)
+            }
         } catch (error) {
           console.error('Error handling reaction:', error);
         }
@@ -113,7 +101,6 @@ const ItemPage = () => {
     return (
         <div className={styles.main}>
             <PageTemplate requiresLogin={true}>
-                <NavBar />
                 <ItemWrapper
                     question={question}
                     answer={answer}

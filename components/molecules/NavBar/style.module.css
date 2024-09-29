@@ -22,3 +22,15 @@
     cursor: pointer;
     
 }
+@media (max-width: 992px) {
+ .main{
+  position: fixed;
+  left: -1000px;
+  transition: 0.3s ease;
+  z-index: 1000;
+  padding: 3rem;
+ }
+ .mobileMeniuOpen{
+    left:0;
+ }
+}

@@ -10,3 +10,22 @@
     border-color: var(--secondary-color);
     outline: none;
 }
+@media (max-width: 520px) {
+    .main{
+        width: 80px;
+        height: 30px;
+        font-size: 0.6rem;
+    }
+} 
+.textarea{
+    width: 100%;
+    height: 150px;
+    padding: 1rem;
+    border: 1px solid var(---primery-color);                  
+    border-radius: 5px;                  
+    font-size: 0.8rem;
+    resize: vertical;                  
+                       
+                      
+
+}
