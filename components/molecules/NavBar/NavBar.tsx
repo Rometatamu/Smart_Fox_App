@@ -4,12 +4,13 @@ import Link from "next/link";
 
 type NavBarProos={
   isOpen: boolean;
+  showNavBar: boolean;
 }
 
-const NavBar = ({isOpen}:NavBarProos) => {
+const NavBar = ({isOpen, showNavBar=true}:NavBarProos) => {
   
   return (
-    <nav className={`${styles.main} ${ isOpen? styles.mobileMeniuOpen : ""}`}>
+    <nav className={`${styles.main} ${ isOpen? styles.mobileMeniuOpen : ""} ${ showNavBar? "" : styles.hidden}`}>
       <ul>
         <li>
           <Link href="/">Home</Link>

@@ -6,7 +6,7 @@ import SignUpForm from "../../components/molecules/SignUpForm/SignUpForm";
 const login = () => {
   return (
     <div className={styles.main}>
-      <PageTemplate>
+      <PageTemplate isshowNavBar={false}>
         <LoginForm/>
         <SignUpForm/>
       </PageTemplate>

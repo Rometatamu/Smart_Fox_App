@@ -23,3 +23,8 @@
         padding: 0 2rem;
     }
 }
+@media (max-width: 520px) {
+    .main{
+        padding: 0 0.5rem;
+    }
+}

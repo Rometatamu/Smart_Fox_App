@@ -6,10 +6,32 @@
     align-items: center;
     gap: 2rem;
     padding-top: 5rem;
-    margin: 5rem;
+    margin-top: 5rem ;
     border: outset var(---primery-color) 5px;
+
 
 }
 .error{
     color: var(---primery-color);
+}
+@media (max-width: 1400px){
+    .main{
+     width:90%;  
+     margin-left: 2rem 
+    
+    }
+}
+@media (max-width: 1200px){
+    .main{
+     width:80%;  
+     margin-left: 3rem 
+    
+    }
+}
+@media (max-width: 992px){
+    .main{
+     width:100%;  
+     margin:0;
+    
+    }
 }

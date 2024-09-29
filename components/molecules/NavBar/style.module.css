@@ -22,7 +22,13 @@
     cursor: pointer;
     
 }
+.hidden{
+    display: none;
+}
 @media (max-width: 992px) {
+   .hidden{
+    display:flex;
+   }
  .main{
   position: fixed;
   left: -1000px;

@@ -12,9 +12,10 @@ import NavBar from "../../molecules/NavBar/NavBar";
 type PageTemplateProps = {
   children: ReactNode;
   requiresLogin?: boolean;
+  isshowNavBar?: boolean;
 };
 
-const PageTemplate = ({ children, requiresLogin = false }: PageTemplateProps) => {
+const PageTemplate = ({ children, requiresLogin = false, isshowNavBar=true }: PageTemplateProps) => {
   const router = useRouter();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -57,7 +58,7 @@ const PageTemplate = ({ children, requiresLogin = false }: PageTemplateProps) =>
       <Header isLoggedIn={isUserLoggedIn} onSignOut={handleSignOut} toggleNavBar={toggleNavBar} />
       <div className={styles.main}>
         <Main>
-          <NavBar isOpen={isNavOpen}/>
+         <NavBar isOpen={isNavOpen} showNavBar={isshowNavBar}/>
           {children}
         </Main>
       </div>
