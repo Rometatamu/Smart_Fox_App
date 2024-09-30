@@ -16,7 +16,7 @@ const Header = ({ isLoggedIn, onSignOut, toggleNavBar }: HeaderProps) => {
   return (
     <header className={styles.main}>
       <div className={styles.mobileBtn}> 
-        <button onClick={toggleNavBar}><img src={MeniuBtn.src}/></button>
+        <button onClick={toggleNavBar}><img src={MeniuBtn.src} alt="meniu_btn"/></button>
       </div>
       <div className={styles.logo}>
         <img src={logo.src} alt="smart_fox_logo" />

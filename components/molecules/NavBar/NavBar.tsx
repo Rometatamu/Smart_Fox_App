@@ -1,11 +1,10 @@
 import styles from "./style.module.css";
 import Link from "next/link";
 
-
 type NavBarProos={
   isOpen: boolean;
   showNavBar: boolean;
-}
+};
 
 const NavBar = ({isOpen, showNavBar=true}:NavBarProos) => {
   

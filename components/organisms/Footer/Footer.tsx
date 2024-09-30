@@ -1,13 +1,13 @@
 import styles from './style.module.css';
 
 type FooterProps={
-    copyrightTitle: string;
+  copyrightTitle: string;
 };
 
 const Fotter = ({copyrightTitle}:FooterProps) => {
   return (
     <div className={styles.main}>
-        <h4>{copyrightTitle}</h4>
+      <h4>{copyrightTitle}</h4>
     </div>
   )
 }

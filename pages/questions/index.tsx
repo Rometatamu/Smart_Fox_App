@@ -11,13 +11,18 @@ import { ValidateUser } from '@/utils/ValidateUser/ValidateUser';
 const QuestionsPage = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const router = useRouter(); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const checkUserLoggin = async () => {
+    const loggedIn = await ValidateUser();
+    setIsLoggedIn(loggedIn);
+  };
 
   const getQuestions = async (type: string) => {
     try {
       let questionsData;
 
       if (type === 'user') {
-        const isLoggedIn = await ValidateUser();
         if (!isLoggedIn) {
           alert("You need to log in to view your questions.");
           router.push('/login'); 
@@ -47,6 +52,7 @@ const QuestionsPage = () => {
   };
 
   useEffect(() => {
+    checkUserLoggin()
     getQuestions('all'); 
   }, []);
 
@@ -57,6 +63,7 @@ const QuestionsPage = () => {
           questions={questions} 
           onQuestionSubmit={() => getQuestions('all')} 
           onFetchQuestions={getQuestions} 
+          isUserLoggedIn={isLoggedIn}
         />
       </PageTemplate>
     </div>

@@ -7,7 +7,6 @@ import { GetQuestion, DeleteQuestion, SubmitAnswer } from '@/apiCalls/question';
 import { FetchQuestionAnswer, PutAnswerReaction,FetchAnswerById} from '@/apiCalls/answer';
 import { Question } from "../../type/question";
 import { Answer } from '@/type/answer';
-import { ValidateUser } from '@/utils/ValidateUser/ValidateUser';
 import Cookies from "js-cookie";
 
 const ItemPage = () => {
@@ -16,25 +15,17 @@ const ItemPage = () => {
     const [userId, setUserId] = useState<string | null>(null);
     const [answerText, setAnswerText] = useState<string>('');
     const router = useRouter();
-
+    
     useEffect(() => {
       const fetchQuestionData = async () => {
-        const isLoggedIn = await ValidateUser();
-        if (!isLoggedIn) {
-            alert("You need to log in to view this question.");
-            router.push('/questions');
-            return;
-        }
         const userId = Cookies.get("user_id") || null; 
         setUserId(userId);
     
         if (router.query.id && userId) {
             try {
                 const fetchedQuestion = await GetQuestion({ id: router.query.id as string });
-                
                 if (fetchedQuestion) { 
                     setQuestion(fetchedQuestion);
-    
                     if (fetchedQuestion.answered) {
                         const fetchedAnswer = await FetchQuestionAnswer({ questionId: fetchedQuestion.id });
                         setAnswer(fetchedAnswer.length > 0 ? fetchedAnswer[0] : null);

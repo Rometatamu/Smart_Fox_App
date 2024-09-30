@@ -3,7 +3,6 @@ import Button from "../../atoms/Button/Button";
 import Link from "next/link";
 import MainPageImg from "../../../assets/main-page-img.jpg";
 
-
 const HomeContent = () => {
   return (
     <div className={styles.main}>
@@ -18,10 +17,8 @@ const HomeContent = () => {
            />
          </Link>
         <img src={MainPageImg.src} alt="man_has_question"/>
-
-
     </div>
   )
-}
+};
 
 export default HomeContent

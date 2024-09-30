@@ -2,12 +2,12 @@ import React from 'react';
 import styles from './style.module.css';
 
 type InputProps={
-    type: string;
-    name: string;
-    value: string| number;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>)=> void;
-    placeholder: string;
-}
+  type: string;
+  name: string;
+  value: string| number;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>)=> void;
+  placeholder: string;
+};
 
 const Input = ({ type, name, value, onChange, placeholder}:InputProps) => {
   return (

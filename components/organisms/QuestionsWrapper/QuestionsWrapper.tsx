@@ -4,7 +4,6 @@ import Button from "../../atoms/Button/Button";
 import Input from "../../atoms/Input/Input";
 import QuestionCard from "../../molecules/QuestionCard/QuestionCard";
 import { Question } from "../../../type/question";
-import { ValidateUser } from "@/utils/ValidateUser/ValidateUser";
 import { SubmitQuestion } from "@/apiCalls/question";
 import { useRouter } from "next/router";
 
@@ -12,22 +11,22 @@ type QuestionsWrapperProps = {
     questions: Question[];
     onQuestionSubmit: () => void;
     onFetchQuestions: (type: string) => void; 
+    isUserLoggedIn: boolean;
 };
 
-const QuestionsWrapper = ({ questions, onQuestionSubmit, onFetchQuestions }: QuestionsWrapperProps) => {
+const QuestionsWrapper = ({ questions, onQuestionSubmit, onFetchQuestions,isUserLoggedIn }: QuestionsWrapperProps) => {
     const [questionText, setQuestionText] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
     const handleSubmit = async () => {
-        setIsLoading(true);
-        const isLoggedIn = await ValidateUser();
-        if (!isLoggedIn) {
+        if (!isUserLoggedIn) {
             alert("You need to log in to submit a question.");
             router.push("/login");
             setIsLoading(false);
             return;
         }
+        setIsLoading(true);
         try {
             const response = await SubmitQuestion({ question_text: questionText });
             if (response.status === 201) {
@@ -35,7 +34,7 @@ const QuestionsWrapper = ({ questions, onQuestionSubmit, onFetchQuestions }: Que
                 onQuestionSubmit();
                 setQuestionText("");
             } else {
-                alert("Failed to submit question.");
+                alert("Failed to submit question.");;
             }
         } catch (error) {
             console.error("Error submitting question:", error);
@@ -87,7 +86,6 @@ const QuestionsWrapper = ({ questions, onQuestionSubmit, onFetchQuestions }: Que
                     title="Submit"
                     isLoading={isLoading}
                     onClick={handleSubmit}
-                  
                 />
             </div>
             <div className={styles.questions}>

@@ -60,19 +60,17 @@ export const FetchUserAnswers = async () => {
     throw err;
   }
 };
+
 type DeleteAnswerProps={
   id: string;
 };
-
 export const DeleteAnswer = async (questionId: string, {id}:DeleteAnswerProps) => { 
     const jwt = Cookies.get(process.env.JWT_KEY as string); 
    
     try {
       const headers = { authorization: jwt };
       const response = await axios.delete(`${process.env.SERVER_URL}/answer/${questionId}/${id}`, { headers });
-
       return response;
-
     } catch (err) {
         console.log(err);
         throw err;
@@ -122,12 +120,10 @@ export const FetchAnswerById = async ({ id }: FetchAnswerByIdProps): Promise<Ans
   if (!jwt) {
     throw new Error("JWT token is missing");
   }
-  
   try {
     const headers = {
       authorization: jwt,
     };
-  
     const response = await axios.get(`${process.env.SERVER_URL}/answer/${id}`, { headers });
     return response.data.answer as Answer;
   } catch (err) {

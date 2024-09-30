@@ -18,8 +18,7 @@ export const FetchQuestions = async () => {
 
 type SubmitQuestionProps={
   question_text: string,
-}
-
+};
 export const SubmitQuestion = async (formData : SubmitQuestionProps) => {
     const jwt = Cookies.get(process.env.JWT_KEY as string);  
     try {
@@ -46,12 +45,10 @@ export const FetchUserQuestions = async () => {
         const headers = {
           authorization: jwt,
         };
-  
         const response = await axios.get(
           `${process.env.SERVER_URL}/questions/user/${userId}`,
           {headers}
         );
-  
       return response.data.questions as Question[]; 
     } catch (err) {
       console.log(err);
@@ -82,22 +79,20 @@ export const FetchNotAnsweredQuestions = async ()=>{
       throw err;
     }
 };
+
 type GetQuestionProps = {
-    id: string;
-  };
-  
-export const GetQuestion = async ({ id }: GetQuestionProps): Promise<Question | null> => {
+  id: string;
+}; 
+export const GetQuestion = async ({ id }: GetQuestionProps) => {
   const jwt = Cookies.get(process.env.JWT_KEY as string);
   
   if (!jwt) {
     throw new Error("JWT token is missing");
   }
-  
   try {
     const headers = {
       authorization: jwt,
     };
-  
     const response = await axios.get(`${process.env.SERVER_URL}/question/${id}`, { headers });
     return response.data.question as Question;
   } catch (err) {

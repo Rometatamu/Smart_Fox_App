@@ -14,7 +14,6 @@ type AnswerCardProps = {
     userId?: string | null;
     currentUserId?:string;
     onDelete?: () => void;
-
 };
 
 const AnswerCard = ({ 
@@ -26,9 +25,6 @@ const AnswerCard = ({
     userId,
     currentUserId, 
     onDelete ,
-
-
-
 }: AnswerCardProps) => {
     const formattedDate = new Date(date).toDateString();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,12 +34,9 @@ const AnswerCard = ({
     const confirmDelete = async () => {
         closeModal();  
         if (onDelete){
-             onDelete();
+            onDelete();
         }
     }
-
-
-
     return (
         <div className={styles.main}>
             <p className={styles.date}>{formattedDate}</p>
@@ -68,10 +61,8 @@ const AnswerCard = ({
              onRequestClose={closeModal}
              onConfirm={confirmDelete}
              title="Do you really want to delete answer?"
-             
             />
             </div>
-            
         </div>
     );
 };

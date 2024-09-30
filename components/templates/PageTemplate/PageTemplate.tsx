@@ -28,6 +28,7 @@ const PageTemplate = ({ children, requiresLogin = false, isshowNavBar=true }: Pa
   const checkUser = async () => {
     setIsLoading(true); 
     const isLoggedIn = await ValidateUser();
+    console.log('Vartotojo prisijungimo būsena:', isLoggedIn);
     setIsUserLoggedIn(isLoggedIn); 
     setIsLoading(false); 
   };
@@ -38,6 +39,7 @@ const PageTemplate = ({ children, requiresLogin = false, isshowNavBar=true }: Pa
     router.push("/"); 
   };
   useEffect(() => {
+    console.log('requiresLogin:', requiresLogin);
     checkUser();
   }, [requiresLogin]);
 

@@ -11,7 +11,6 @@ type AnswersWrapperProps = {
     onDeleteAnswer: (questionId: string, answerId: string) => Promise<void>;
     handleReaction: (reactionType: 'like' | 'dislike', answerId: string) => Promise<void>
     userId: string|null;
-
 };
 
 const AnswersWrapper = ({ answers, onFetchAnswers, onDeleteAnswer, handleReaction, userId }: AnswersWrapperProps) => {

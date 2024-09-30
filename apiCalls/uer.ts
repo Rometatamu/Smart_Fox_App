@@ -34,8 +34,7 @@ type SignUpProps={
     photo: string,
     email: string;
     password: string;
-}
-
+};
 export const SignUp= async ({name, photo, email, password}:SignUpProps)=>{
     const body={
         name: name,
@@ -44,7 +43,6 @@ export const SignUp= async ({name, photo, email, password}:SignUpProps)=>{
         password: password,
     };
     const response=await axios.post(`${process.env.SERVER_URL}/signup`, body);
-
     return response;
 };
 export const FetchUsers = async () => {

@@ -7,34 +7,32 @@ import Button from "../../atoms/Button/Button";
 import Input from "../../atoms/Input/Input";
 
 const LoginForm = () => {
-    const router=useRouter();
+  const router=useRouter();
 
-    const [email, setEmail]=useState("");
-    const [password, setPassword]=useState("");
-    const [isShowError,setShowError ]=useState(false);
-    const [isButtonLoading, setButtonLoading]=useState(false);
+  const [email, setEmail]=useState("");
+  const [password, setPassword]=useState("");
+  const [isShowError,setShowError ]=useState(false);
+  const [isButtonLoading, setButtonLoading]=useState(false);
 
-    const loginUser=async()=>{
-        try{
-            setButtonLoading(true);
+  const loginUser=async()=>{
+    try{
+      setButtonLoading(true);
 
-            const response=await Login({email, password});
+      const response=await Login({email, password});
              
-            if (response.status===200){
-                Cookies.set(process.env.JWT_KEY as string, response.data.jwtToken);
-                Cookies.set("user_id", response.data.userId);
-                router.push("/questions");
-            }
-            console.log(response.data.jwtToken);
-            setButtonLoading(false);
-        } catch (err){
-            console.log("err", err);
-            setShowError(true);
-            setButtonLoading(false);
-
-        }
-    };
-
+      if (response.status===200){
+        Cookies.set(process.env.JWT_KEY as string, response.data.jwtToken);
+        Cookies.set("user_id", response.data.userId);
+        router.push("/questions");
+      }
+      console.log(response.data.jwtToken);
+      setButtonLoading(false);
+    } catch (err){
+      console.log("err", err);
+      setShowError(true);
+      setButtonLoading(false);
+    }
+  };
 
   return (
     <div className={styles.main}>
@@ -65,8 +63,6 @@ const LoginForm = () => {
     </div>
   );
 };
-
-  
 
 export default LoginForm
 

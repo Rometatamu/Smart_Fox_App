@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { Answer } from "../../type/answer";
 import { FetchAnswers, FetchAnswersWithLike,FetchUserAnswers, DeleteAnswer, PutAnswerReaction,FetchAnswerById } from "../../apiCalls/answer";
 import { useRouter } from 'next/router'; 
-import { ValidateUser } from '@/utils/ValidateUser/ValidateUser';
 import Cookies from "js-cookie";
 
 
@@ -22,12 +21,9 @@ const AnswerPage = () => {
   const handleReaction = async (reactionType: 'like' | 'dislike', answerId: string) => {
     try {
       if (!userId) {
-        const isLoggedIn = await ValidateUser();
-        if (!isLoggedIn) {
-          alert("You need to log in to react.");
-          router.push('/login');
-          return;
-        }
+        alert("You need to log in to react.");
+        router.push('/login');
+        return;
       }
       if (!answerId) {
         console.error('Answer ID not found');
@@ -44,12 +40,13 @@ const AnswerPage = () => {
       console.error('Error handling reaction:', error);
     }
   };
+
   const onDeleteAnswer = async (questionId: string, answerId: string) => {
     try {
-        await DeleteAnswer(questionId, { id: answerId });
-        setAnswers(prevAnswers => prevAnswers.filter(answer => answer.id !== answerId));
+      await DeleteAnswer(questionId, { id: answerId });
+      setAnswers(prevAnswers => prevAnswers.filter(answer => answer.id !== answerId));
     } catch (error) {
-        console.error("Failed to delete answer", error);
+      console.error("Failed to delete answer", error);
     }
   };
   const getAnswers = async (type: string) => {
@@ -57,8 +54,7 @@ const AnswerPage = () => {
       let answersData;
 
       if (type === 'user') {
-        const isLoggedIn = await ValidateUser();
-        if (!isLoggedIn) {
+        if (!userId) {
           alert("You need to log in to view your answers.");
           router.push('/login'); 
           return;

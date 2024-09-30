@@ -30,20 +30,17 @@ const ItemWrapper = ({ question, answer, userId, answerText, setAnswerText, hand
         closeModal();  
         handleDeleteQuestion();
     }
-    
     if (!question) return null;
 
     return (
         <div className={styles.main}>
             <Button title="Back" onClick={() => router.back()} isLoading={false} type="CALL" />
-
             <QuestionCard
                 id={question.id}
                 question_text={question.question_text}
                 answered={question.answered}
                 date={new Date(question.date).toLocaleDateString()}
             />
-
             {userId === question.userId && !question.answered && (
                 <Button title="Delete" onClick={openModal} isLoading={false} type="DANGER" />
             )}
@@ -52,9 +49,7 @@ const ItemWrapper = ({ question, answer, userId, answerText, setAnswerText, hand
              onRequestClose={closeModal}
              onConfirm={confirmDelete}
              title="Do you really want to delete question?"
-             
             />
-
             {userId !== question.userId && !question.answered && (
                 <div className={styles.textarea}>
                     <Input
@@ -63,20 +58,10 @@ const ItemWrapper = ({ question, answer, userId, answerText, setAnswerText, hand
                         value={answerText}
                         placeholder="Add your answer"
                         onChange={(e) => setAnswerText(e.target.value)}
-                        style={{
-                            width: "100%",
-                            height: "150px",
-                            padding: "1rem",
-                            border: "1px solid var(---primery-color)",
-                            borderRadius: "5px",
-                            fontSize: "0.8rem",
-                            resize: "vertical",
-                        }}
                     />
                     <Button title="Submit" isLoading={false} onClick={handleSubmitAnswer} />
                 </div>
             )}
-
             {question.answered && answer && (
                 <AnswerCard
                     key={answer.id}
