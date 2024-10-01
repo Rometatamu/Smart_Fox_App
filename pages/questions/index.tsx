@@ -2,9 +2,7 @@ import PageTemplate from '@/components/templates/PageTemplate/PageTemplate';
 import QuestionsWrapper from '@/components/organisms/QuestionsWrapper/QuestionsWrapper';
 import { useState, useEffect } from "react";
 import { Question } from "../../type/question";
-import { FetchQuestions } from "../../apiCalls/question";
-import { FetchUserQuestions } from "../../apiCalls/question";
-import {FetchAnsweredQuestions, FetchNotAnsweredQuestions} from "../../apiCalls/question";
+import {FetchQuestions,  FetchUserQuestions, FetchAnsweredQuestions, FetchNotAnsweredQuestions}  from "../../apiCalls/question";
 import { useRouter } from 'next/router'; 
 import { ValidateUser } from '@/utils/ValidateUser/ValidateUser';
 
@@ -17,7 +15,7 @@ const QuestionsPage = () => {
     const loggedIn = await ValidateUser();
     setIsLoggedIn(loggedIn);
   };
-
+  
   const getQuestions = async (type: string) => {
     try {
       let questionsData;

@@ -7,10 +7,8 @@ export const ValidateUser = async () => {
   if (!jwtToken) {
     return false;
   }
-
   try {
     const response = await UserValidation();
-
     if (response.status === 200) {
       return true;
     } else {

@@ -55,30 +55,20 @@ export const FetchUserQuestions = async () => {
       throw err;
     }
 };
-export const FetchAnsweredQuestions = async ()=>{
-    try{
-        const response=await axios.get(
-          `${process.env.SERVER_URL}/questions/filtered?answered=true`,  
-        );
-        console.log(response.data.questions)
-      return response.data.questions as Question[]; 
-    } catch (err) {
+export const GetFilteredQuestions = async (answered: boolean) => {
+  try {
+      const response = await axios.get(
+          `${process.env.SERVER_URL}/questions/filtered?answered=${answered}`
+      );
+      console.log(response.data.questions);
+      return response.data.questions as Question[];
+  } catch (err) {
       console.log(err);
       throw err;
-    }
+  }
 };
-export const FetchNotAnsweredQuestions = async ()=>{
-    try{
-        const response=await axios.get(
-          `${process.env.SERVER_URL}/questions/filtered?answered=false`,  
-        );
-        console.log(response.data.questions)
-      return response.data.questions as Question[]; 
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
-};
+export const FetchAnsweredQuestions = () => GetFilteredQuestions(true);
+export const FetchNotAnsweredQuestions = () => GetFilteredQuestions(false);
 
 type GetQuestionProps = {
   id: string;

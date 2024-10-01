@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env:{
-    SERVER_URL: "http://localhost:3002",
+    SERVER_URL: "https://smart-fox-api.onrender.com",
     JWT_KEY: "fox_app_jwt",
   },
 };

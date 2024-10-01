@@ -20,7 +20,6 @@ const UsersPage = () => {
     getUsers(); 
   }, []);
 
-
   return (
     <div>
       <PageTemplate>
