@@ -23,7 +23,7 @@ const SignUpForm = () => {
       const response=await SignUp({email, password,name,photo});
              
       if (response.status===201){
-        Cookies.set("fox_app_jwt", response.data.token);
+        Cookies.set(process.env.JWT_KEY as string, response.data.jwtToken);
         Cookies.set("user_id", response.data.userId);
         router.push("/questions");
       }
